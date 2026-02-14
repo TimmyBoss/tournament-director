@@ -1,0 +1,75 @@
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8e8e8;
+  transition: transform 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #1a1a2e;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.choiceBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+  color: #333;
+}
+
+.choiceBtn:hover:not(:disabled) {
+  border-color: var(--phase-color, #4a90d9);
+  background: #f0f7ff;
+}
+
+.choiceBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.effectPositive {
+  color: #27ae60;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.effectNegative {
+  color: #e74c3c;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.effectNeutral {
+  color: #999;
+  font-weight: 600;
+  font-size: 0.8rem;
+}

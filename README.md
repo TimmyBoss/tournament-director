@@ -7,6 +7,3 @@ A browser-based football tournament management simulation game where you organiz
 - Manage bidding, stadiums, branding, and logistics
 - Turn-based gameplay
 - [etc]
-
-## Tech Stack
-[Welke tech ga je gebruiken?]

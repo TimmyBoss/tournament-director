@@ -4,7 +4,9 @@
       "Bash(dotnet build:*)",
       "Bash(dotnet --list-sdks:*)",
       "WebSearch",
-      "Bash(dotnet:*)"
+      "Bash(dotnet:*)",
+      "Bash(curl:*)",
+      "Bash(python:*)"
     ]
   }
 }

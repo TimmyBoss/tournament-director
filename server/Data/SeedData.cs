@@ -1,16 +1,13 @@
+using System.Data;
+using Dapper;
 using TournamentDirector.Server.Models;
 
 namespace TournamentDirector.Server.Data;
 
 public static class SeedData
 {
-    public static void Initialize(AppDbContext context)
+    public static void Seed(IDbConnection connection)
     {
-        context.Database.EnsureCreated();
-
-        if (context.Countries.Any())
-            return;
-
         var countries = new List<Country>
         {
             // AFC (47)
@@ -237,7 +234,8 @@ public static class SeedData
             new() { Name = "Wales", FifaCode = "WAL", Confederation = "UEFA" },
         };
 
-        context.Countries.AddRange(countries);
-        context.SaveChanges();
+        connection.Execute(
+            "INSERT INTO Countries (Name, FifaCode, Confederation) VALUES (@Name, @FifaCode, @Confederation)",
+            countries);
     }
 }

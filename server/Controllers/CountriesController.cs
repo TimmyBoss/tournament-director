@@ -1,6 +1,6 @@
+using System.Data;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TournamentDirector.Server.Data;
 using TournamentDirector.Server.Models;
 
 namespace TournamentDirector.Server.Controllers;
@@ -9,24 +9,27 @@ namespace TournamentDirector.Server.Controllers;
 [Route("api/[controller]")]
 public class CountriesController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IDbConnection _db;
 
-    public CountriesController(AppDbContext context)
+    public CountriesController(IDbConnection db)
     {
-        _context = context;
+        _db = db;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
     {
-        return await _context.Countries.OrderBy(c => c.Name).ToListAsync();
+        var countries = await _db.QueryAsync<Country>(
+            "SELECT Id, Name, FifaCode, Confederation FROM Countries ORDER BY Name");
+        return Ok(countries);
     }
 
     [HttpGet("{fifaCode}")]
     public async Task<ActionResult<Country>> GetCountry(string fifaCode)
     {
-        var country = await _context.Countries
-            .FirstOrDefaultAsync(c => c.FifaCode == fifaCode.ToUpperInvariant());
+        var country = await _db.QueryFirstOrDefaultAsync<Country>(
+            "SELECT Id, Name, FifaCode, Confederation FROM Countries WHERE FifaCode = @FifaCode",
+            new { FifaCode = fifaCode.ToUpperInvariant() });
 
         if (country == null)
             return NotFound();
@@ -37,9 +40,9 @@ public class CountriesController : ControllerBase
     [HttpGet("confederation/{confederation}")]
     public async Task<ActionResult<IEnumerable<Country>>> GetByConfederation(string confederation)
     {
-        return await _context.Countries
-            .Where(c => c.Confederation == confederation.ToUpperInvariant())
-            .OrderBy(c => c.Name)
-            .ToListAsync();
+        var countries = await _db.QueryAsync<Country>(
+            "SELECT Id, Name, FifaCode, Confederation FROM Countries WHERE Confederation = @Confederation ORDER BY Name",
+            new { Confederation = confederation.ToUpperInvariant() });
+        return Ok(countries);
     }
 }

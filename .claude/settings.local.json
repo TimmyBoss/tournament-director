@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"& ''C:/tmp/dotnet-install.ps1'' -Channel 10.0 -InstallDir ''$env:USERPROFILE/.dotnet''\")"
+    ]
+  }
+}
